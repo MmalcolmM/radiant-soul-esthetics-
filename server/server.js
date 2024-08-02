@@ -20,14 +20,11 @@ app.use(cors());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
 });
 
 // Create Apollo Server
@@ -50,8 +47,11 @@ const server = new ApolloServer({
 
 async function startServer() {
   await server.start();
-  server.applyMiddleware({ app });
 
+  server.applyMiddleware({ app });
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  
   // Serve static files from the React app
   app.use(express.static(path.join(__dirname, 'client/build'))); // Update to 'build' if that's your build directory
 
