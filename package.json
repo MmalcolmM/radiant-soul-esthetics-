@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server/server.js",
     "client": "cd client && vite",
     "client:build": "cd client && vite build",
     "client:serve": "cd client && vite preview",
@@ -24,8 +24,7 @@
     "express": "^4.19.2",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.5.2",
-    "vite": "^5.3.5"
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
