@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../dist',
+    outDir: 'dist', // Ensure this matches the expected output directory
     emptyOutDir: true,
   }
 });
