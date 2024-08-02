@@ -8,10 +8,13 @@ const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { typeDefs, resolvers } = require('./schemas');
+const db =require('./config/connection');
+
 
 // Initialize Express
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3073;
 
 // Use CORS middleware
 app.use(cors());
@@ -22,11 +25,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 // Define Mongoose models
 const userSchema = new mongoose.Schema({
@@ -36,53 +34,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// Define GraphQL type definitions
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-
-  type Mutation {
-    signup(username: String!, password: String!): String
-    login(username: String!, password: String!): String
-    sendEmail(name: String!, email: String!, message: String!): String
-  }
-`;
-
-// Define resolvers
-const resolvers = {
-  Query: {
-    hello: () => 'Hello, world!',
-  },
-  Mutation: {
-    signup: async (parent, { username, password }) => {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new User({ username, password: hashedPassword });
-      await user.save();
-      return jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET);
-    },
-    login: async (parent, { username, password }) => {
-      const user = await User.findOne({ username });
-      if (!user) throw new Error('Invalid credentials');
-      const isValid = await bcrypt.compare(password, user.password);
-      if (!isValid) throw new Error('Invalid credentials');
-      return jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET);
-    },
-    sendEmail: async (parent, { name, email, message }) => {
-      const msg = {
-        to: 'info@rsesthetics.com', // Your email address
-        from: 'em4346@rsesthetics.com', // Your verified sender email
-        replyTo: email, // User's email address
-        subject: 'New Contact Form Submission',
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-        html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`,
-      };
-
-      await sgMail.send(msg);
-      return 'Email sent successfully!';
-    },
-  },
-};
 
 // Create Apollo Server
 const server = new ApolloServer({
@@ -115,8 +66,11 @@ async function startServer() {
   });
 
   // Start the server
-  app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`);
+  db.once('open', () => {
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
+      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+    });
   });
 }
 
