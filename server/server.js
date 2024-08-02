@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer} = require('apollo-server-express');
+const { expressMiddleware } = require('@apollo/server/express4');
+
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -21,18 +23,15 @@ app.use(cors());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 
 // Define Mongoose models
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-});
+// const userSchema = new mongoose.Schema({
+//   username: { type: String, required: true, unique: true },
+//   password: { type: String, required: true },
+// });
 
-const User = mongoose.model('User', userSchema);
+// const User = mongoose.model('User', userSchema);
 
 
 // Create Apollo Server
@@ -55,10 +54,17 @@ const server = new ApolloServer({
 
 async function startServer() {
   await server.start();
-  server.applyMiddleware({ app });
 
+  server.applyMiddleware({ app });
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  
   // Serve static files from the React app
   app.use(express.static(path.join(__dirname, 'client/dist')));
+
+  //includes middleWare for graphql
+  app.use('/graphql', expressMiddleware(server));
+
 
   // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
   app.get('*', (req, res) => {

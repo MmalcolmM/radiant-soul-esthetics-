@@ -1,6 +1,8 @@
+const {User} = require('../models')
+
 const resolvers = {
     Query: {
-      hello: () => 'Hello, world!',
+      
     },
     Mutation: {
       signup: async (parent, { username, password }) => {
