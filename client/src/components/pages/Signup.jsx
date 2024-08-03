@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
-const LOGIN = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password)
+const SIGNUP = gql`
+  mutation Signup($username: String!, $password: String!) {
+    signup(username: $username, password: $password)
   }
 `;
 
-function Login() {
+function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [login] = useMutation(LOGIN);
+  const [signup] = useMutation(SIGNUP);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login({ variables: { username, password } });
-    navigate('/');
+    await signup({ variables: { username, password } });
+    navigate('/login');
   };
 
   return (
@@ -36,9 +36,9 @@ function Login() {
         placeholder="Password"
         required
       />
-      <button type="submit">Login</button>
+      <button type="submit">Signup</button>
     </form>
   );
 }
 
-export default Login;
+export default Signup;

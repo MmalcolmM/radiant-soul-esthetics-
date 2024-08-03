@@ -1,0 +1,173 @@
+:root {
+  --black: #000;
+  --puce: #D07687;
+}
+
+body{
+  padding-bottom: 25%;
+  margin-bottom: 100px;
+  /* width: 100%; */
+  clear: both;
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  margin-top: 20px;
+}
+
+.address:hover {
+  color: var(--puce);
+}
+
+.nav-link {
+  color: var(--black);
+}
+
+.nav-link:focus, .nav-link:hover { 
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
+}
+
+.slider {
+  position: relative;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sliderImages {
+  width: 70%;
+}
+
+.slide {
+  opacity: 0;
+  transition-duration: 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transition-duration: 1s;
+  transform: scale(1.08);
+}
+
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  font-size: 30px;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  font-size: 30px;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logoPic {
+  padding-bottom: 5px;
+  width: 60%;
+}
+
+.nav-book {
+  position: sticky;
+  top: 0;
+  background-color: #1E1E24;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.book-link:hover {
+  color: var(--puce);
+}
+
+.header {
+  width: 40%;
+}
+
+.instagram,
+.phone,
+.email {
+  height: 2em;
+  width: 2em;
+  margin: 5px;
+}
+
+.instagram:hover,
+.phone:hover,
+.email:hover {
+  color: var(--puce);
+}
+
+.footer {
+  display: flex;
+  background-color: #1E1E24;
+  position:absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.icons {
+  display: flex;
+}
+
+.services {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.service-item {
+  margin-bottom: 40px;
+}
+
+.service-item h3 {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.service-item p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.service-item ul {
+  list-style-type: disc;
+  margin: 10px 0 20px 20px;
+  padding: 0;
+  color: #555;
+}
+
+#price {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: plum;
+}
+
+.serviceContainer {
+  width: 100%;
+}
