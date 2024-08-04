@@ -9,6 +9,41 @@
   text-align: center;
 }
 
+@font-face {
+  font-family: 'stayInVilla';
+  src: url('../fonts/Stay\ In\ Villa.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'seasonsRegular';
+  src: url('../fonts/The\ Seasons\ Regular.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'seasonsLight';
+  src: url('../fonts/The\ Seasons\ Light.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'seasonsBold';
+  src: url('../fonts/The\ Seasons\ Bold.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'seasonsItalic';
+  src: url('../fonts/The\ Seasons\ Italic.ttf');
+  font-weight: normal;
+}
+
+.aboutMain{
+font-family: seasonsBold;
+font-size: 18px;
+
+}
 .logo {
   height: 6em;
   padding: 1.5em;

@@ -3,24 +3,33 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendors': ['react', 'react-dom'],
+          'chakra-vendors': ['@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion']
+        }
+      }
+    },
+    outDir: 'dist',
+    emptyOutDir: true,
+    chunkSizeWarningLimit: 1000, // Adjust chunk size limit
+  },
   server: {
     port: 3000,
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3071', // Ensure this matches your server port
+        target: 'http://localhost:3071',
         secure: false,
         changeOrigin: true,
       },
       '/graphql': {
-        target: 'http://localhost:3071', // Ensure this matches your server port
+        target: 'http://localhost:3071',
         secure: false,
         changeOrigin: true,
       },
     },
   },
-  build: {
-    outDir: 'dist', // Ensure this matches where your server expects the build output
-    emptyOutDir: true,
-  }
 });
