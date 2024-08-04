@@ -8,19 +8,19 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3071', // Ensure this matches your server port
         secure: false,
         changeOrigin: true,
       },
       '/graphql': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3071', // Ensure this matches your server port
         secure: false,
         changeOrigin: true,
       },
     },
   },
   build: {
-    outDir: './dist', // Ensure this matches the expected output directory
+    outDir: 'dist', // Ensure this matches where your server expects the build output
     emptyOutDir: true,
   }
 });

@@ -53,14 +53,14 @@ async function startServer() {
   app.use(bodyParser.json());
   
   // Serve static files from the React app
-  app.use(express.static(path.join(__dirname, 'client/build'))); // Update to 'build' if that's your build directory
+  app.use(express.static(path.join(__dirname, 'client/dist'))); // Update to 'build' if that's your build directory
 
   // Includes middleware for GraphQL
   app.use('/graphql', expressMiddleware(server));
 
   // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html')); // Update to 'build' if that's your build directory
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html')); // Update to 'build' if that's your build directory
   });
 
   // Start the server
