@@ -9,6 +9,10 @@ import About from "./components/pages/About";
 import Contact from "./components/pages/SendEmail";
 import Services from "./components/pages/Services";
 import BookNow from "./components/pages/BookNow";
+import Admin from "./components/pages/Admin";
+import Login from "./components/pages/Login";
+import Signup from "./components/pages/Signup";
+
 
 // Define the accessible routes, and which components respond to which URL
 const router = createBrowserRouter([
@@ -37,7 +41,20 @@ const router = createBrowserRouter([
         path: "/BookNow",
         element: <BookNow />,
       },
+      {
+        path: "/Admin",
+        element: <Admin />,
+      },
+      {
+        path: "/Login",
+        element: <Login />,
+      },
+      {
+        path: "/Signup",
+        element: <Signup />,
+      },
     ]
+
 
   }
 ])
