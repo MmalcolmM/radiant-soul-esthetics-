@@ -20,7 +20,6 @@ app.use(cors());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   // useNewUrlParser: true,
@@ -51,16 +50,16 @@ async function startServer() {
   server.applyMiddleware({ app });
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  
+
   // Serve static files from the React app
-  app.use(express.static(path.join(__dirname, 'client/dist'))); // Update to 'build' if that's your build directory
+  app.use(express.static(path.join(__dirname, '../client/dist')));
 
   // Includes middleware for GraphQL
   app.use('/graphql', expressMiddleware(server));
 
   // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist', 'index.html')); // Update to 'build' if that's your build directory
+    // res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
   });
 
   // Start the server
