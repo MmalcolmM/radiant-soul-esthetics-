@@ -1,5 +1,6 @@
 import logo from "../assets/logo.jpg";
 import { Box } from "@chakra-ui/react";
+import "../App.css";
 
 export default function Header() {
   return (

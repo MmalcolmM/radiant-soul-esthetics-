@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LOGIN = gql`
   mutation Login($username: String!, $password: String!) {
@@ -21,6 +21,7 @@ function Login() {
   };
 
   return (
+    <div>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -38,6 +39,9 @@ function Login() {
       />
       <button type="submit">Login</button>
     </form>
+
+    <p>No account,</p><Link to="/Signup"size='xs' bg="white" variant='ghost' m={5} b={0}>Signup</Link>
+    </div>
   );
 }
 

@@ -44,3 +44,74 @@
 .read-the-docs {
   color: #888;
 }
+
+.nav-link {
+  color: var(--black);
+}
+
+.nav-link:focus, .nav-link:hover { 
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
+}
+
+.logoPic {
+  padding-bottom: 5px;
+  width: 60%;
+}
+
+.header {
+  width: 40%;
+}
+
+.nav-book {
+  position: sticky;
+  top: 0;
+  background-color: #1E1E24;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.book-link:hover {
+  color: var(--puce);
+}
+
+.address:hover {
+  color: var(--puce);
+}
+
+.instagram,
+.phone,
+.email {
+  height: 2em;
+  width: 2em;
+  margin: 5px;
+}
+
+.instagram:hover,
+.phone:hover,
+.email:hover {
+  color: var(--puce);
+}
+
+.content {
+  flex: 1;
+}
+.footer {
+  background-color: var(--black);
+}
+
+.icons {
+  display: flex;
+}
+
+.content-container {
+  min-height: calc(100vh - 352px);
+}
+

@@ -1,32 +1,19 @@
 :root {
   --black: #000;
   --puce: #D07687;
+  --blackRasin: #1E1E24;
 }
 
 body{
-  padding-bottom: 25%;
-  margin-bottom: 100px;
-  /* width: 100%; */
-  clear: both;
+  /* padding-bottom: 25%;
+  margin-bottom: 100px; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 p {
   margin-top: 20px;
-}
-
-.address:hover {
-  color: var(--puce);
-}
-
-.nav-link {
-  color: var(--black);
-}
-
-.nav-link:focus, .nav-link:hover { 
-  color: var(--black);
-  border-bottom: 1px solid var(--black);
 }
 
 .slider {
@@ -36,6 +23,7 @@ p {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  margin-bottom: 20px ;
 }
 
 .sliderImages {
@@ -45,6 +33,7 @@ p {
 .slide {
   opacity: 0;
   transition-duration: 1s ease;
+  margin-bottom: 100px;
 }
 
 .slide.active {
@@ -73,62 +62,6 @@ p {
   z-index: 10;
   cursor: pointer;
   user-select: none;
-}
-
-.logoPic {
-  padding-bottom: 5px;
-  width: 60%;
-}
-
-.nav-book {
-  position: sticky;
-  top: 0;
-  background-color: #1E1E24;
-  color: white;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 25px;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-
-.book-link:hover {
-  color: var(--puce);
-}
-
-.header {
-  width: 40%;
-}
-
-.instagram,
-.phone,
-.email {
-  height: 2em;
-  width: 2em;
-  margin: 5px;
-}
-
-.instagram:hover,
-.phone:hover,
-.email:hover {
-  color: var(--puce);
-}
-
-.footer {
-  display: flex;
-  background-color: #1E1E24;
-  position:absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.icons {
-  display: flex;
 }
 
 .services {
@@ -170,4 +103,8 @@ p {
 
 .serviceContainer {
   width: 100%;
+}
+
+.intro {
+  margin-bottom: 10px;
 }
