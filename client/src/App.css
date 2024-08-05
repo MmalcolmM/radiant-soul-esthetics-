@@ -84,7 +84,7 @@ font-size: 18px;
   color: var(--black);
 }
 
-.nav-link:focus, .nav-link:hover { 
+.nav-link:focus, .nav-link:hover{ 
   color: var(--black);
   border-bottom: 1px solid var(--black);
 }
