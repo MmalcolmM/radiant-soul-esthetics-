@@ -63,10 +63,10 @@ function Footer() {
             <a href="https://www.instagram.com/radiant_soul_esthetics/">
               <FaInstagram className="instagram" />
             </a>
-            <a href="tel:0000000000" style={{ margin: "0 10px" }}>
+            <a href="tel:3605509603" style={{ margin: "0 10px" }}>
               <FiPhone className="phone" />
             </a>
-            <a href="mailto:#">
+            <a href="mailto:info@rsesthetics.com">
               <MdOutlineMail className="email" />
             </a>
           </Flex>
