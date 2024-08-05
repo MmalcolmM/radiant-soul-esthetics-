@@ -6,13 +6,12 @@ import "./index.css";
 import Error from "./components/pages/Error";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
-import Contact from "./components/pages/SendEmail";
+import ContactForm from "./components/pages/ContactForm"; 
 import Services from "./components/pages/Services";
 import BookNow from "./components/pages/BookNow";
 import Admin from "./components/pages/Admin";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
-
 
 // Define the accessible routes, and which components respond to which URL
 const router = createBrowserRouter([
@@ -26,37 +25,35 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/About",
+        path: "/about",
         element: <About />,
       },
       {
-        path: "/Services",
+        path: "/services",
         element: <Services />,
       },
       {
-        path: "/Contact",
-        element: <Contact />,
+        path: "/contact",
+        element: <ContactForm />, 
       },
       {
-        path: "/BookNow",
+        path: "/booknow",
         element: <BookNow />,
       },
       {
-        path: "/Admin",
+        path: "/admin",
         element: <Admin />,
       },
       {
-        path: "/Login",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "/Signup",
+        path: "/signup",
         element: <Signup />,
       },
     ]
-
-
   }
-])
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
