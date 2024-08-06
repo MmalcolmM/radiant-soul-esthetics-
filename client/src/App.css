@@ -9,12 +9,14 @@
   text-align: center;
 }
 
+/* Header */
 @font-face {
   font-family: 'stayInVilla';
   src: url('../fonts/Stay\ In\ Villa.ttf');
   font-weight: normal;
 }
 
+/* paragraphs */
 @font-face {
   font-family: 'seasonsRegular';
   src: url('../fonts/The\ Seasons\ Regular.ttf');
