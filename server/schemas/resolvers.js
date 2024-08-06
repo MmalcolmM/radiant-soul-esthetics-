@@ -38,8 +38,8 @@ const resolvers = {
       const token = signToken(user);
       return token;
     },
-    login: async (_, { username, password }) => {
-      const user = await User.findOne({ username });
+    login: async (_, { email, password }) => {
+      const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError('Invalid credentials');
       }
@@ -47,12 +47,14 @@ const resolvers = {
       if (!isValid) {
         throw new AuthenticationError('Invalid credentials');
       }
-      const token = signToken(user);
+      const token = jwt.sign({ id: user._id, email: user.email, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
       return token;
     },
+    
+    
     sendEmail: async (_, { name, email, message }) => {
       const msg = {
-        to: 'info@rsesthetics.com', // Your email address
+        to: 'mac.mac5@yahoo.com', // Your email address   info@rsesthetics.com
         from: 'em4346@rsesthetics.com', // Your verified sender email
         replyTo: email, // User's email address
         subject: 'New Contact Form Submission',

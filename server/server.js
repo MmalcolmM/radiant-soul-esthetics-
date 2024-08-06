@@ -7,9 +7,11 @@ const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { expressMiddleware } = require('@apollo/server/express4');
-const { typeDefs, resolvers } = require('./schemas');
+const typeDefs = require('./schemas/typeDefs'); // Ensure you import typeDefs correctly
+const resolvers = require('./schemas/resolvers'); // Ensure you import resolvers correctly
 const db = require('./config/connection');
+
+
 
 // Initialize Express
 const app = express();
@@ -35,14 +37,15 @@ const server = new ApolloServer({
     let user = null;
     if (token) {
       try {
-        user = jwt.verify(token, process.env.JWT_SECRET);
+        user = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
       } catch (e) {
-        console.error(e);
+        console.error('JWT verification error:', e);
       }
     }
     return { user };
   },
 });
+
 
 async function startServer() {
   await server.start();
@@ -55,11 +58,11 @@ async function startServer() {
   app.use(express.static(path.join(__dirname, '../client/dist')));
 
   // Includes middleware for GraphQL
-  app.use('/graphql', expressMiddleware(server));
+  app.use('/graphql', server.getMiddleware({ path: '/graphql' }));
 
   // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
   app.get('*', (req, res) => {
-    // res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
   });
 
   // Start the server
