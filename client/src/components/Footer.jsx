@@ -2,10 +2,21 @@ import { FaInstagram } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { MdOutlineMail } from "react-icons/md";
 import { Box, Grid, Flex, Button} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../utils/auth.jsx';
 import "../App.css";
 
 function Footer() {
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAdminClick = () => {
+    if (isAuthenticated && user.isAdmin ) {
+      navigate('/admin')
+    } else {
+      navigate('/login')
+    }
+  }
   return (
     <Flex className="footer" align="center" justify="center" direction="column" >
       <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4} width="100%">
