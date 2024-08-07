@@ -15,12 +15,13 @@ const db = require('./config/connection');
 
 // Initialize Express
 const app = express();
-const PORT = process.env.PORT || 3071;
+const PORT = process.env.PORT || 3072;
 
 // Use CORS middleware
 app.use(cors());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 // Create Apollo Server
 const server = new ApolloServer({
