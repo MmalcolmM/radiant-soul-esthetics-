@@ -1,65 +1,67 @@
 import { FaInstagram } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { MdOutlineMail } from "react-icons/md";
-import { Box, Grid, Flex } from "@chakra-ui/react"
-import "./pages/pages.css"
+import { Box, Grid, Flex, Button} from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../utils/auth.jsx';
+import "../App.css";
 
 function Footer() {
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAdminClick = () => {
+    if (isAuthenticated && user.isAdmin ) {
+      navigate('/admin')
+    } else {
+      navigate('/login')
+    }
+  }
   return (
-    <Flex className="footer" align="center" justify="center" direction="column" p={4} bg="gray.800">
-      <Grid
-        templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
-        gap={4}
-        width="100%"
-      >
-        <Box className="hours" color="#fff" p={4} textAlign="center">
-          <div className="hours-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Hours</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Monday</td>
-                  <td>2:30 PM - 6:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Tuesday</td>
-                  <td>2:30 PM - 6:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Wednesday</td>
-                  <td>2:30 PM - 6:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Thursday</td>
-                  <td>2:30 PM - 6:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Friday</td>
-                  <td>2:30 PM - 8:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Saturday</td>
-                  <td>9:00 AM - 6:00 PM</td>
-                </tr>
-                <tr>
-                  <td>Sunday</td>
-                  <td>Closed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Box>
-        <Flex
-          direction="column"
-          align="center"
-          justify="center"
-          color="#fff"
-          p={4}
-        >
+    <Flex className="footer" align="center" justify="center" direction="column" >
+      <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4} width="100%">
+        <Flex direction="column" align="center" justify="center" color="#fff">
+          <Box className="hours" color="#fff" textAlign="center">
+            <div className="hours-table">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Monday</td>
+                    <td>2:30 PM - 6:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Tuesday</td>
+                    <td>2:30 PM - 6:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Wednesday</td>
+                    <td>2:30 PM - 6:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Thursday</td>
+                    <td>2:30 PM - 6:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Friday</td>
+                    <td>2:30 PM - 8:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Saturday</td>
+                    <td>9:00 AM - 6:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Sunday</td>
+                    <td>Closed</td>
+                  </tr>
+                </tbody>
+              </table>
+              <Link to="/admin">
+                <Button size='xs' bg="gray" variant='ghost' m={5} b={0}>Admin</Button>
+              </Link>
+            </div>
+          </Box>
+        </Flex>
+        <Flex direction="column" align="center" justify="center" color="#fff" p={4}>
           <Box className="address" mb={2} textAlign="center">
             <a
               className="address"
@@ -72,10 +74,10 @@ function Footer() {
             <a href="https://www.instagram.com/radiant_soul_esthetics/">
               <FaInstagram className="instagram" />
             </a>
-            <a href="tel:0000000000" style={{ margin: "0 10px" }}>
+            <a href="tel:3605509603" style={{ margin: "0 10px" }}>
               <FiPhone className="phone" />
             </a>
-            <a href="mailto:#">
+            <a href="mailto:info@rsesthetics.com">
               <MdOutlineMail className="email" />
             </a>
           </Flex>
