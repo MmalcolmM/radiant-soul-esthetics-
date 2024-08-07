@@ -22,11 +22,14 @@ app.use(cors());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+<<<<<<< HEAD
+=======
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
 });
+>>>>>>> 24038e18061459b9a82e267f1322f3104dc026ff
 
 // Create Apollo Server
 const server = new ApolloServer({
