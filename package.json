@@ -8,7 +8,8 @@
     "client:build": "cd client && vite build",
     "client:serve": "cd client && vite preview",
     "build": "npm run client:build",
-    "dev": "concurrently \"npm run start\" \"npm run client\""
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "seed": "node server/seedAdmin.js"
   },
   "keywords": [],
   "author": "",
@@ -31,8 +32,8 @@
     "framer-motion": "^11.3.21",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.5.2",
-    "stripe": "^16.6.0"
+    "jwt-decode": "^4.0.0",
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

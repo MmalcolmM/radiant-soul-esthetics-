@@ -9,10 +9,10 @@ const typeDefs = gql`
   }
 
   type Service {
-  id: ID
-  name: String!
-  description: String!
-  price: Float!
+    id: ID
+    name: String!
+    description: String!
+    price: Float!
   }
 
   type Order {
@@ -35,7 +35,7 @@ const typeDefs = gql`
 
   type Mutation {
     signup(username: String!, email: String!, password: String!): String
-    login(username: String!, password: String!): String
+    login(email: String!, password: String!): String
     sendEmail(name: String!, email: String!, message: String!): String
     addService(name: String!, description: String!, price: Float!): Service
     updateService(id: ID!, name: String, description: String, price: Float): Service
