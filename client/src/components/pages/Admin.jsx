@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import "./pages.css";
+import {ADDSERVICE} from '../../utils/mutations';
+import { useMutation } from '@apollo/client';
+
+
 
 function Admin() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
+ const [addService,{error,data}] = useMutation(ADDSERVICE);
+
+
 
   const handleInputChange = (e) => {
     const { target } = e;
@@ -21,18 +28,33 @@ function Admin() {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (!title || !description || !price) {
       setErrorMessage('please finish filling out the form!');
       return;
     }
-    alert(`${title} added to services!`)
+    else{
+      try{
+
+        const priceAsNumber=parseFloat(price);
+        const {data} = await addService( 
+          {variables: {title: title, description: description, price: priceAsNumber}},
+         );
+        console.log(data);
+        alert(`${title} added to services!`);
+      }
+      catch (err){
+        console.log(err);
+      }
+      
+    }
+   
 
     setTitle('');
     setDescription('');
-    setPrice('');
+    setPrice(0);
     setErrorMessage('');
   };
 

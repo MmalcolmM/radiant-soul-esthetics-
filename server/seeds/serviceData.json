@@ -1,31 +1,31 @@
 [
     {
-        "name": "Radiant Soul Facial",
+        "title": "Radiant Soul Facial",
         "description": "Immerse yourself in the ultimate relaxation with our Radiant Soul Facial, a comprehensive treatment designed to cleanse, rejuvenate, and nourish your skin." ,
         "price": 100.00 
     },
     {
-        "name": "Deep Cleansing Bacial (Back Facial)",
+        "title": "Deep Cleansing Bacial (Back Facial)",
         "description": "This specialized service begins with a thorough cleansing to remove impurities, excess oil, and buildup from the skin's surface." ,
         "price": 140.00
     },   
     {
-        "name": "Teen Acne Facial" ,
+        "title": "Teen Acne Facial" ,
         "description": "A specialized treatment designed to target and alleviate teenage skin concerns with care and expertise." ,
         "price": 80.00
     }, 
     {
-        "name": "Anti-Aging Facial" ,
+        "title": "Anti-Aging Facial" ,
         "description": "Indulge in our rejuvenating anti-aging facial, meticulously crafted to breathe new life into your skin while addressing signs of aging.",
         "price":  115.00
     },    
     {
-        "name": "Lash Lift and Tint",
+        "title": "Lash Lift and Tint",
         "description": "Gorgeous lashes that require minimal maintenance and look effortlessly glamorous day and night.",
         "price": 80.00
     },    
     {
-        "name": "Microblading" ,
+        "title": "Microblading" ,
         "description": "Achieve the perfect brows with our Permanent Microblading service! Using precise, hair-like strokes, we'll create natural-looking brows tailored to your facial features." ,
         "price": 300.00
     }  

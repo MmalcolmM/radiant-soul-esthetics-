@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
 import { validateEmail } from '../../utils/helpers';
+import {SIGNUP} from '../../utils/mutations';
 
-const SIGNUP = gql`
-  mutation Signup($username: String!, $password: String!) {
-    signup(username: $username, password: $password)
-  }
-`;
+
+
+// const SIGNUP = gql`
+//   mutation Signup($username: String!, $password: String!) {
+//     signup(username: $username, password: $password)
+//   }
+// `;
 
 function Signup() {
   const [email, setEmail] = useState('');

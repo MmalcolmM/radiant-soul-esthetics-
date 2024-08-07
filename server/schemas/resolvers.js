@@ -11,7 +11,7 @@ const signToken = (user) => {
   return jwt.sign(
     { id: user._id, email: user.email, isAdmin: user.isAdmin },
     process.env.JWT_SECRET,
-    { expiresIn: '1h' }
+    { expiresIn: '2h' }
   );
 };
 
@@ -64,12 +64,14 @@ const resolvers = {
       await sgMail.send(msg);
       return 'Email sent successfully!';
     },
-    addService: async (_, { name, description, price }, context) => {
+    addService: async (_, { title, description, price }) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
-      const service = new Service({ name, description, price });
-      return await service.save();
+      const service = new Service({ title, description, price });
+      console.log(service);
+      const results = await service.save();
+      return results;
     },
     updateService: async (_, { id, name, description, price }, context) => {
       if (!context.user || !context.user.isAdmin) {
