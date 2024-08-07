@@ -3,7 +3,7 @@
 }
 
 #root {
-  /* max-width: 1280px; */
+  max-width: 1400vh;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -151,4 +151,3 @@ font-size: 18px;
 .content-container {
   min-height: calc(100vh - 352px);
 }
-

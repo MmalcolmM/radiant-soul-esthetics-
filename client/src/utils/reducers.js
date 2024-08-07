@@ -1,23 +1,23 @@
-import { UPDATE_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, TOGGLE_CART } from "./actions";
+import { UPDATE_SERVICES, ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, TOGGLE_CART } from "./actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_PRODUCTS:
+    case UPDATE_SERVICES:
       return {
         ...state,
-        products: [...action.products],
+        services: [...action.services],
       }
 
     case ADD_TO_CART:
       return {
         ...state,
         cartOpen: true,
-        cart: [...state.cart, action.product],
+        cart: [...state.cart, action.service],
       };
 
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter((product) => {
-        return product._id !== action._id;
+      let newState = state.cart.filter((service) => {
+        return service._id !== action._id;
       });
 
       return {

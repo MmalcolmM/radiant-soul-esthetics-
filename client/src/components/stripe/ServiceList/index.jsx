@@ -1,70 +1,70 @@
 import { useEffect } from 'react';
-import ProductItem from '../ProductItem';
-import { useStoreContext } from '../../utils/GlobalState';
-import { UPDATE_PRODUCTS } from '../../utils/actions';
+// import ServiceItem from '../ServiceItem';
+import { useStoreContext } from '../../../utils/GlobalState';
+import { UPDATE_SERVICES } from '../../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_PRODUCTS } from '../../utils/queries';
+import { QUERY_SERVICES } from '../../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
 
-function ProductList() {
+function ServiceList() {
   const [state, dispatch] = useStoreContext();
 
   const { currentCategory } = state;
 
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
+  const { loading, data } = useQuery(QUERY_SERVICES);
 
   useEffect(() => {
     if (data) {
       dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
+        type: UPDATE_SERVICES,
+        services: data.services,
       });
-      data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+      data.services.forEach((service) => {
+        idbPromise('services', 'put', service);
       });
     } else if (!loading) {
-      idbPromise('products', 'get').then((products) => {
+      idbPromise('services', 'get').then((services) => {
         dispatch({
-          type: UPDATE_PRODUCTS,
-          products: products,
+          type: UPDATE_SERVICES,
+          services: services,
         });
       });
     }
   }, [data, loading, dispatch]);
 
-  function filterProducts() {
+  function filterServices() {
     if (!currentCategory) {
-      return state.products;
+      return state.services;
     }
 
-    return state.products.filter(
-      (product) => product.category._id === currentCategory
+    return state.services.filter(
+      (service) => service.category._id === currentCategory
     );
   }
 
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
-      {state.products.length ? (
+      <h2>Our Services:</h2>
+      {state.services.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
-            <ProductItem
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
+          {filterServices().map((service) => (
+            <ServiceItem
+              key={service._id}
+              _id={service._id}
+              image={service.image}
+              name={service.name}
+              price={service.price}
+              quantity={service.quantity}
             />
           ))}
         </div>
       ) : (
-        <h3>You haven't added any products yet!</h3>
+        <h3>You haven't added any services yet!</h3>
       )}
       {loading ? <img src={spinner} alt="loading" /> : null}
     </div>
   );
 }
 
-export default ProductList;
+export default ServiceList;

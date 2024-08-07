@@ -18,7 +18,7 @@ const typeDefs = gql`
   type Order {
   _id: ID
   purchaseDate: String
-  products: [Product]
+  services: [Service]
   }
 
   type Checkout {
@@ -30,7 +30,7 @@ const typeDefs = gql`
     getServices(name: String): [Service]
     getService(id: ID!): Service
     order(id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    checkout(services: [ID]!): Checkout
   }
 
   type Mutation {

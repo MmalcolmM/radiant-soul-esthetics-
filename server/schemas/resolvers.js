@@ -38,7 +38,7 @@ const resolvers = {
     order: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
+          path: 'orders.service',
           populate: 'category'
         });
 
@@ -49,21 +49,21 @@ const resolvers = {
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ products: args.products });
+      const order = new Order({ service: args.service });
       const line_items = [];
 
-      const { products } = await order.populate('products');
+      const { service } = await order.populate('service');
 
-      for (let i = 0; i < products.length; i++) {
-        const product = await stripe.products.create({
-          name: products[i].name,
-          description: products[i].description,
-          images: [`${url}/images/${products[i].image}`]
+      for (let i = 0; i < service.length; i++) {
+        const service = await stripe.service.create({
+          name: service[i].name,
+          description: service[i].description,
+          images: [`${url}/images/${service[i].image}`]
         });
 
         const price = await stripe.prices.create({
-          product: product.id,
-          unit_amount: products[i].price * 100,
+          service: service.id,
+          unit_amount: service[i].price * 100,
           currency: 'usd',
         });
 

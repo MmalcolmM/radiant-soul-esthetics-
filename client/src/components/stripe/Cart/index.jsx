@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/client';
-import { QUERY_CHECKOUT } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
-// import CartItem from '../CartItem';
-import { useStoreContext } from '../../utils/GlobalState';
-import { TOGGLE_CART } from '../../utils/actions';
+import { QUERY_CHECKOUT } from '../../../utils/queries';
+import { idbPromise } from '../../../utils/helpers';
+import { useStoreContext } from '../../../utils/GlobalState';
+import { TOGGLE_CART, ADD_TO_CART } from '../../../utils/actions';
 import './style.css';
-import { ADD_TO_CART } from '../../../utils/actions';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_KEY);
 
@@ -24,17 +22,15 @@ const Cart = () => {
   }, [data]);
 
   useEffect(() => {
-    async function getCart() {
+    async function fetchCart() {
       const cart = await idbPromise('cart', 'get');
-      const dispatch = useDispatch();
-
-      cart.forEach(service => {
-        dispatch({ type: ADD_TO_CART, service})
-      })
+      cart.forEach((service) => {
+        dispatch({ type: ADD_TO_CART, service });
+      });
     }
-
+    
     if (!state.cart.length) {
-      getCart();
+      fetchCart();
     }
   }, [state.cart.length, dispatch]);
 
