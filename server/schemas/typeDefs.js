@@ -1,10 +1,11 @@
-const { gql } =  require('apollo-server-express')
+const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
   type User{
   _id: ID
   name: String!
   email: String!
+  order: [Order]
   }
 
   type Service {
@@ -14,10 +15,22 @@ const typeDefs = gql`
   price: Float!
   }
 
+  type Order {
+  _id: ID
+  purchaseDate: String
+  products: [Product]
+  }
+
+  type Checkout {
+  session: ID
+  }
+
   type Query {
     user: User
-    getServices: [Service]
+    getServices(name: String): [Service]
     getService(id: ID!): Service
+    order(id: ID!): Order
+    checkout(products: [ID]!): Checkout
   }
 
   type Mutation {
@@ -30,4 +43,4 @@ const typeDefs = gql`
   }
 `;
 
-module.exports =typeDefs;
+module.exports = typeDefs;
