@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation} from '@apollo/client';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from "../../utils/auth"; // Ensure correct import path
+import {LOGIN} from '../../utils/mutations';
 
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password)
-  }
-`;
 
 function Login() {
   const [email, setEmail] = useState('');
