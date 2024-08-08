@@ -1,8 +1,9 @@
-const { User, Service } = require('../models');
+const { User, Service, Order } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const sgMail = require('@sendgrid/mail');
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_TEST_KEY);
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -18,10 +19,15 @@ const signToken = (user) => {
 const resolvers = {
   Query: {
     user: async (_, __, context) => {
-      if (!context.user) {
-        throw new AuthenticationError('You need to be logged in!');
+      if (context.user) {
+        const user = await User.findById(context.user.id);
+
+        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+
+        return user;
       }
-      return await User.findById(context.user.id);
+
+      throw AuthenticationError;
     },
     getServices: async () => {
       return await Service.find();
@@ -29,6 +35,49 @@ const resolvers = {
     getService: async (_, { id }) => {
       return await Service.findById(id);
     },
+    order: async (parent, { _id }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+
+        return user.orders.id(_id);
+      }
+
+      throw AuthenticationError;
+    },
+    checkout: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
+      const order = new Order({ service: args.service });
+      const line_items = [];
+
+      const { service } = await order.populate('service');
+
+      for (let i = 0; i < service.length; i++) {
+        const service = await stripe.service.create({
+          name: service[i].name,
+          description: service[i].description
+        });
+
+        const price = await stripe.prices.create({
+          service: service.id,
+          unit_amount: service[i].price * 100,
+          currency: 'usd',
+        });
+
+        line_items.push({
+          price: price.id,
+          quantity: 1
+        });
+      }
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`
+      });
+
+      return { session: session.id };
+    }
   },
   Mutation: {
     signup: async (_, { username, email, password }) => {
@@ -50,8 +99,8 @@ const resolvers = {
       const token = jwt.sign({ id: user._id, email: user.email, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
       return token;
     },
-    
-    
+
+
     sendEmail: async (_, { name, email, message }) => {
       const msg = {
         to: 'mac.mac5@yahoo.com', // Your email address   info@rsesthetics.com
@@ -89,6 +138,17 @@ const resolvers = {
       }
       await Service.findByIdAndDelete(id);
       return 'Service deleted';
+    },
+    addOrder: async (parent, { services }, context) => {
+      if (context.user) {
+        const order = new Order({ services });
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+
+        return order;
+      }
+
+      throw AuthenticationError;
     },
   },
 };

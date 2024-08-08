@@ -1,5 +1,5 @@
 import { useState/** , useEffect*/ } from 'react';
-import sliderData from "./sliderData";
+import sliderData from "../../utils/sliderData";
 import * as sliderImgs from "../../assets/index";
 import "./pages.css";
 import { Box, Text } from "@chakra-ui/react";

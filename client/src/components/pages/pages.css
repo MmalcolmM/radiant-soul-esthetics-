@@ -4,7 +4,12 @@
   --blackRasin: #1E1E24;
 }
 
-body{
+
+html {
+  width: auto;
+}
+
+body {
   /* padding-bottom: 25%;
   margin-bottom: 100px; */
   height: 100vh;
@@ -23,7 +28,7 @@ p {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  margin-bottom: 20px ;
+  margin-bottom: 20px;
 }
 
 .sliderImages {
@@ -64,47 +69,47 @@ p {
   user-select: none;
 }
 
-.services {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.service-item {
-  margin-bottom: 40px;
-}
-
-.service-item h3 {
-  font-weight: bold;
-  font-size: 1.5em;
-  color: #333;
-}
-
-.service-item p {
-  color: #555;
-  line-height: 1.6;
-}
-
-.service-item ul {
-  list-style-type: disc;
-  margin: 10px 0 20px 20px;
-  padding: 0;
-  color: #555;
-}
-
-#price {
-  font-weight: bold;
-  font-size: 1.2em;
-  color: plum;
+.intro {
+  margin-bottom: 10px;
 }
 
 .serviceContainer {
-  width: 100%;
+  width: 100vh;
 }
 
-.intro {
-  margin-bottom: 10px;
+.css-0 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.price {
+  margin-top: 0px;
+  color: var(--puce);
+  font-weight: 600;
+}
+
+.description {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.css-tuh9u2 {
+display: flex;
+align-content: center;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.services {
+  font-weight: 800;
+  font-size: xx-large;
 }

@@ -1,7 +1,8 @@
 .env
 client/node_modules
 node_modules
-
+.vite/deps
+.bin
 
 # Logs
 logs
