@@ -23,3 +23,11 @@ mutation addService($title: String!, $description: String!, $price: Float!) {
     }
 
 `;
+
+// export const updateService= gql`
+// mutation UpdateService($updateServiceId: ID!, $name: String, $description: String, $price: Float) {
+//   updateService(id: $updateServiceId, name: $name, description: $description, price: $price) {
+    
+//   }
+// }
+// `;

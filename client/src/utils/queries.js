@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
 
+
+
 export const QUERY_SERVICES = gql`
-  query getServices {
+  query getService {
     services {
       _id
       name
@@ -12,14 +14,14 @@ export const QUERY_SERVICES = gql`
 `;
 
 export const QUERY_ALL_SERVICES = gql`
-  {
-    services {
-      _id
-      name
-      description
-      price
-      }
-    }
+query Query {
+  getServices {
+    description
+    price
+    title
+    id
+  }
+}
 `;
 
 export const QUERY_CHECKOUT = gql`

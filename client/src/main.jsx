@@ -18,6 +18,7 @@ import Admin from './components/pages/Admin';
 import Login from './components/pages/Login'; // Ensure this import is correct
 import Signup from './components/pages/Signup';
 // import OrderHistory from './components/pages/OrderHistory.jsx';
+import AdminUpdate from './components/pages/AdminUpdate';
 import { AuthProvider, useAuth } from './utils/auth.jsx';
 
 const ProtectedRoute = ({ element }) => {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: <ProtectedRoute element={<Admin />} />,
+      },
+      {
+        path: '/update',
+        element: <ProtectedRoute element={<AdminUpdate />} />,
       },
       {
         path: '/login',
