@@ -8,8 +8,8 @@ export const LOGIN = gql`
     ;
 
 export const SIGNUP = gql`
-mutation Signup($username: String!, $password: String!) {
-  signup(username: $username, password: $password)
+mutation Signup($email: String!, $name: String!, $password: String!) {
+  signup(email: $email, name: $name, password: $password)
 }
 `;
 

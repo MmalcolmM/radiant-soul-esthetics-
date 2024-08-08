@@ -1,8 +1,15 @@
+import Cart from "../stripe/Cart";
+import ServiceList from "../stripe/ServiceList";
+
+
 import "./pages.css";
 
 function BookNow() {
   return (
-    <h1> Buy Services</h1>
+    <div className="container">
+    <ServiceList />
+    <Cart />
+    </div>
   )
 }
 

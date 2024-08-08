@@ -5,9 +5,9 @@ import { QUERY_CHECKOUT } from '../../../utils/queries';
 import { idbPromise } from '../../../utils/helpers';
 import { useStoreContext } from '../../../utils/GlobalState';
 import { TOGGLE_CART, ADD_TO_CART } from '../../../utils/actions';
-import './style.css';
+import CartItem from '../CartItem';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_KEY);
+const stripePromise = loadStripe('pk_test_51PkEy5JQqDoxp8ufkpimkAai9or3YeGPZJMXFLsvRgtPjvbavPCKu7gAo1ENOOoKDSj4z3oo6tGnnthEIshxt6gX00zNLviU98');
 
 const Cart = () => {
   const [state, dispatch] = useStoreContext();

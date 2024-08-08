@@ -1,21 +1,20 @@
 import { useEffect } from 'react';
-// import ServiceItem from '../ServiceItem';
+import ServiceItem from '../ServiceItem/Index';
 import { useStoreContext } from '../../../utils/GlobalState';
 import { UPDATE_SERVICES } from '../../../utils/actions';
 import { useQuery } from '@apollo/client';
 import { QUERY_SERVICES } from '../../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
-import spinner from '../../assets/spinner.gif';
+import { idbPromise } from '../../../utils/helpers';
 
 function ServiceList() {
   const [state, dispatch] = useStoreContext();
+  const { services } = state;
 
-  const { currentCategory } = state;
-
-  const { loading, data } = useQuery(QUERY_SERVICES);
+  const { loading, data, error } = useQuery(QUERY_SERVICES);
 
   useEffect(() => {
     if (data) {
+      console.log('Data from query:', data);
       dispatch({
         type: UPDATE_SERVICES,
         services: data.services,
@@ -25,44 +24,37 @@ function ServiceList() {
       });
     } else if (!loading) {
       idbPromise('services', 'get').then((services) => {
-        dispatch({
-          type: UPDATE_SERVICES,
-          services: services,
-        });
+        console.log('Data from IndexedDB:', services);
+        if (services.length > 0) {
+          dispatch({
+            type: UPDATE_SERVICES,
+            services: services,
+          });
+        }
       });
     }
   }, [data, loading, dispatch]);
 
-  function filterServices() {
-    if (!currentCategory) {
-      return state.services;
-    }
-
-    return state.services.filter(
-      (service) => service.category._id === currentCategory
-    );
-  }
+  console.log(data);
+  
 
   return (
     <div className="my-2">
       <h2>Our Services:</h2>
-      {state.services.length ? (
+      {services.length ? (
         <div className="flex-row">
-          {filterServices().map((service) => (
+          {services.map((service) => (
             <ServiceItem
               key={service._id}
               _id={service._id}
-              image={service.image}
               name={service.name}
               price={service.price}
-              quantity={service.quantity}
             />
           ))}
         </div>
       ) : (
         <h3>You haven't added any services yet!</h3>
       )}
-      {loading ? <img src={spinner} alt="loading" /> : null}
     </div>
   );
 }

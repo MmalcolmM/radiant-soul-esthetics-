@@ -5,17 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../utils/helpers';
 import {SIGNUP} from '../../utils/mutations';
 
-
-
-// const SIGNUP = gql`
-//   mutation Signup($username: String!, $password: String!) {
-//     signup(username: $username, password: $password)
-//   }
-// `;
-
 function Signup() {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [verifyPassword, setVerifyPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,7 +17,7 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup({ variables: { username, password, email } });
+    await signup({ variables: { name, password, email } });
     navigate('/Login');
   };
 
@@ -41,9 +33,9 @@ function Signup() {
       setErrorMessage('Passwords do not match');
       return;
     }
-    handleSubmit(e, username, password, email);
+    handleSubmit(e, name, password, email);
 
-    setUsername('');
+    setName('');
     setPassword('');
     setVerifyPassword('');
     setEmail('');
@@ -62,9 +54,9 @@ function Signup() {
       />
       <input
         type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
         required
       />
       <input

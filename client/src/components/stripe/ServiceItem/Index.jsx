@@ -3,7 +3,7 @@ import { useStoreContext } from "../../../utils/GlobalState";
 import { ADD_TO_CART } from "../../../utils/actions";
 import { idbPromise } from "../../../utils/helpers";
 
-function ProductItem(item) {
+function ServiceItem(item) {
   const [state, dispatch] = useStoreContext();
 
   const {
@@ -15,18 +15,12 @@ function ProductItem(item) {
   const { cart } = state
 
   const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
+    const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: _id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
+      // If item is already in the cart, do nothing since it can only be purchased once
+      console.log('Item already in cart');
     } else {
+      // If item is not in the cart, add it with purchaseQuantity set to 1
       dispatch({
         type: ADD_TO_CART,
         product: { ...item, purchaseQuantity: 1 }
@@ -37,15 +31,11 @@ function ProductItem(item) {
 
   return (
     <div className="card px-1 py-1">
-      <Link to={`/products/${_id}`}>
-        <img
-          alt={name}
-          src={`/images/${image}`}
-        />
+      <Link to={`/service/${_id}`}>
         <p>{name}</p>
       </Link>
       <div>
-        <div>{quantity} {pluralize("item", quantity)} in stock</div>
+        <div>Purchase {name} service!</div>
         <span>${price}</span>
       </div>
       <button onClick={addToCart}>Add to cart</button>
@@ -53,4 +43,4 @@ function ProductItem(item) {
   );
 }
 
-export default ProductItem;
+export default ServiceItem;

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
+const Order = require("./Order");
 
 const userSchema = new Schema({
   name: {
@@ -21,7 +22,8 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
-  }
+  },
+  orders: [Order.schema]
 });
 
 userSchema.pre('save', async function(next) {

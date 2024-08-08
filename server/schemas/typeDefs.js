@@ -40,6 +40,7 @@ const typeDefs = gql`
     addService(title: String!, description: String!, price: Float!): Service
     updateService(id: ID!, name: String, description: String, price: Float): Service
     deleteService(id: ID!): String
+    addOrder(services: [ID!]!): Order
   }
 `;
 

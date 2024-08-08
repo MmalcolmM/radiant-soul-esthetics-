@@ -37,10 +37,7 @@ const resolvers = {
     },
     order: async (parent, { _id }, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'orders.service',
-          populate: 'category'
-        });
+        const user = await User.findById(context.user._id);
 
         return user.orders.id(_id);
       }
@@ -57,8 +54,7 @@ const resolvers = {
       for (let i = 0; i < service.length; i++) {
         const service = await stripe.service.create({
           name: service[i].name,
-          description: service[i].description,
-          images: [`${url}/images/${service[i].image}`]
+          description: service[i].description
         });
 
         const price = await stripe.prices.create({
@@ -103,8 +99,8 @@ const resolvers = {
       const token = jwt.sign({ id: user._id, email: user.email, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
       return token;
     },
-    
-    
+
+
     sendEmail: async (_, { name, email, message }) => {
       const msg = {
         to: 'mac.mac5@yahoo.com', // Your email address   info@rsesthetics.com
@@ -142,6 +138,17 @@ const resolvers = {
       }
       await Service.findByIdAndDelete(id);
       return 'Service deleted';
+    },
+    addOrder: async (parent, { services }, context) => {
+      if (context.user) {
+        const order = new Order({ services });
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+
+        return order;
+      }
+
+      throw AuthenticationError;
     },
   },
 };
