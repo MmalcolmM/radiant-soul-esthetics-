@@ -33,15 +33,16 @@ const typeDefs = gql`
     checkout(services: [ID]!): Checkout
   }
 
-  type Mutation {
-    signup(username: String!, email: String!, password: String!): String
-    login(email: String!, password: String!): String
-    sendEmail(name: String!, email: String!, message: String!): String
-    addService(title: String!, description: String!, price: Float!): Service
-    updateService(id: ID!, name: String, description: String, price: Float): Service
-    deleteService(id: ID!): String
-    addOrder(services: [ID!]!): Order
-  }
+type Mutation {
+  signup(name: String!, email: String!, password: String!): String
+  login(email: String!, password: String!): String
+  sendEmail(name: String!, email: String!, message: String!): String
+  addService(title: String!, description: String!, price: Float!): Service
+  updateService(id: ID!, title: String, description: String, price: Float): Service
+  deleteService(id: ID!): String
+  addOrder(services: [ID!]!): Order
+}
+
 `;
 
 module.exports = typeDefs;
