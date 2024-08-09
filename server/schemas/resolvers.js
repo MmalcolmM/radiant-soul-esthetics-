@@ -32,8 +32,8 @@ const resolvers = {
     getServices: async () => {
       return await Service.find();
     },
-    getService: async (_, { id }) => {
-      return await Service.findById(id);
+    getService: async (_, { _id }) => {
+      return await Service.findById(_id);
     },
     order: async (parent, { _id }, context) => {
       if (context.user) {
