@@ -3,23 +3,23 @@ import ServiceItem from '../ServiceItem/Index';
 import { useStoreContext } from '../../../utils/GlobalState';
 import { UPDATE_SERVICES } from '../../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_SERVICES } from '../../../utils/queries';
+import { QUERY_SERVICE } from '../../../utils/queries';
 import { idbPromise } from '../../../utils/helpers';
 
 function ServiceList() {
   const [state, dispatch] = useStoreContext();
   const { services } = state;
 
-  const { loading, data, error } = useQuery(QUERY_SERVICES);
+  const { loading, data, error } = useQuery(QUERY_SERVICE);
 
   useEffect(() => {
     if (data) {
       console.log('Data from query:', data);
       dispatch({
         type: UPDATE_SERVICES,
-        services: data.services,
+        services: data.getServices,
       });
-      data.services.forEach((service) => {
+      data.getServices.forEach((service) => {
         idbPromise('services', 'put', service);
       });
     } else if (!loading) {

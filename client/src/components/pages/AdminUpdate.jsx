@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import "./pages.css";
-import {QUERY_SERVICES} from '../../utils/queries';
+import {QUERY_SERVICE} from '../../utils/queries';
 import { useQuery,useMutation } from '@apollo/client';
 
 function AdminUpdate(){
 
 // grabs the service we will update (Query)
 // places the grabbed service in the old form (Mapping)
-    const {data} =useQuery(QUERY_SERVICES)
+    const {data} =useQuery(QUERY_SERVICE)
 
 //The right form will read its input information (Event Handler)
 //the service will update and redirect to services page (Mutation)
