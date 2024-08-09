@@ -12,7 +12,7 @@ const signToken = (user) => {
   return jwt.sign(
     { id: user._id, email: user.email, isAdmin: user.isAdmin },
     process.env.JWT_SECRET,
-    { expiresIn: '2h' }
+    { expiresIn: '4h' }
   );
 };
 
@@ -27,7 +27,7 @@ const resolvers = {
         return user;
       }
 
-      throw AuthenticationError;
+      throw new AuthenticationError('You must be logged in');
     },
     getServices: async () => {
       return await Service.find();
@@ -42,47 +42,50 @@ const resolvers = {
         return user.orders.id(_id);
       }
 
-      throw AuthenticationError;
+      throw new AuthenticationError('You must be logged in');
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
-      const order = new Order({ service: args.service });
+      const order = new Order({ services: args.services });
       const line_items = [];
 
-      const { service } = await order.populate('service');
+      const { services } = await order.populate('services');
 
-      for (let i = 0; i < service.length; i++) {
-        const service = await stripe.service.create({
-          name: service[i].name,
-          description: service[i].description
-        });
-
-        const price = await stripe.prices.create({
-          service: service.id,
-          unit_amount: service[i].price * 100,
-          currency: 'usd',
-        });
-
+      for (let i = 0; i < services.length; i++) {
+        const service = services[i];
         line_items.push({
-          price: price.id,
-          quantity: 1
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: service.title,
+              description: service.description,
+            },
+            unit_amount: service.price * 100,
+          },
+          quantity: 1,
         });
       }
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items,
         mode: 'payment',
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`
+        cancel_url: `${url}/`,
       });
 
       return { session: session.id };
     }
   },
   Mutation: {
-    signup: async (_, { username, email, password }) => {
+    signup: async (_, { name, email, password }) => {
+      const userExists = await User.findOne({ email });
+      if (userExists) {
+        throw new AuthenticationError('User already exists');
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new User({ username, email, password: hashedPassword });
+      const user = new User({ name, email, password: hashedPassword });
       await user.save();
       const token = signToken(user);
       return token;
@@ -96,14 +99,12 @@ const resolvers = {
       if (!isValid) {
         throw new AuthenticationError('Invalid credentials');
       }
-      const token = jwt.sign({ id: user._id, email: user.email, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = signToken(user);
       return token;
     },
-
-
     sendEmail: async (_, { name, email, message }) => {
       const msg = {
-        to: 'mac.mac5@yahoo.com', // Your email address   info@rsesthetics.com
+        to: 'mac.mac5@yahoo.com', // Your email address
         from: 'em4346@rsesthetics.com', // Your verified sender email
         replyTo: email, // User's email address
         subject: 'New Contact Form Submission',
@@ -113,22 +114,21 @@ const resolvers = {
       await sgMail.send(msg);
       return 'Email sent successfully!';
     },
-    addService: async (_, { title, description, price }) => {
+    addService: async (_, { title, description, price }, context) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
       const service = new Service({ title, description, price });
-      console.log(service);
       const results = await service.save();
       return results;
     },
-    updateService: async (_, { id, name, description, price }, context) => {
+    updateService: async (_, { id, title, description, price }, context) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
       return await Service.findByIdAndUpdate(
         id,
-        { name, description, price },
+        { title, description, price },
         { new: true }
       );
     },
@@ -148,7 +148,7 @@ const resolvers = {
         return order;
       }
 
-      throw AuthenticationError;
+      throw new AuthenticationError('You must be logged in');
     },
   },
 };
