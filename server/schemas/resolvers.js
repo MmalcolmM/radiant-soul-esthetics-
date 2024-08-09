@@ -113,7 +113,7 @@ const resolvers = {
       await sgMail.send(msg);
       return 'Email sent successfully!';
     },
-    addService: async (_, { title, description, price }) => {
+    addService: async (parent, { title, description, price }, context) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
@@ -132,12 +132,13 @@ const resolvers = {
         { new: true }
       );
     },
-    deleteService: async (_, { id }, context) => {
+    deleteService: async (_, { _id }, context) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
-      await Service.findByIdAndDelete(id);
-      return 'Service deleted';
+      console.log(`removing service with ID ${id}`);
+      
+      return  Service.findOneAndDelete({id: _id}) ;
     },
     addOrder: async (parent, { services }, context) => {
       if (context.user) {

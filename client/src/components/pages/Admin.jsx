@@ -42,7 +42,6 @@ function Admin() {
         const {data} = await addService( 
           {variables: {title: title, description: description, price: priceAsNumber}},
          );
-        console.log(data);
         alert(`${title} added to services!`);
       }
       catch (err){

@@ -13,7 +13,18 @@ export const QUERY_SERVICES = gql`
   }
 `;
 
-export const QUERY_ALL_SERVICES = gql`
+export const QUERYALLSERVICES = gql`
+query Query {
+  getServices {
+    description
+    price
+    title
+    id
+  }
+}
+`;
+
+export const GETSERVICES =gql`
 query Query {
   getServices {
     description

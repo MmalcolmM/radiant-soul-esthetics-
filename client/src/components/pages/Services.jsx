@@ -1,11 +1,13 @@
 import { Box, Image, Grid, GridItem,Button } from "@chakra-ui/react";
 import { useState } from "react";
-import serviceInfo from "../../serviceInfo";
+//import serviceInfo from "../../serviceInfo";
 import { facial } from "../../assets/index";
 import "./pages.css";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 //import { useMutation } from "@apollo/client";
-import {QUERY_ALL_SERVICES} from '../../utils/queries'
+import {GETSERVICES} from '../../utils/queries'
+import { REMOVESERVICE } from "../../utils/mutations";
+//import
 import {useAuth} from '../../utils/auth';
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,7 +18,6 @@ function ServiceCard(serviceInfo) {
     <Box className="serviceCardContainer">
       <Box className="serviceCard" display="block">
         <div className="serviceCardHeader">
-          
           <h3 className="card-title">{serviceInfo.title}</h3>
         </div>
         <div className="serviceCardBody">
@@ -28,30 +29,50 @@ function ServiceCard(serviceInfo) {
   );
 }
 
-export default function ServicesPage() {
-  const [services] = useState(serviceInfo);
-  const {data}=  useQuery(QUERY_ALL_SERVICES);
+
+const ServicesPage = () =>  {
+  const [removeService] = useMutation(REMOVESERVICE)
+  const {data}=  useQuery(GETSERVICES);
   const { isAuthenticated, user } = useAuth();
 
-
-
-  const AdminTools =() =>{
+  const AdminTools =(serviceInfo) =>{
     if(isAuthenticated && user.isAdmin){
       return (
         <>
         <Link to="/update">
         <Button size='xs' bg="gray" variant='ghost' m={5} b={0}>Update</Button>
         </Link>
-        <button>Remove</button>
+        <button onClick={()=>handleDeletion(serviceInfo)}>Remove</button>
       </>
       )
       
     }
   }
+  
+  async function handleDeletion(serviceInfo){
+  if(confirm(`Woah there slugger! you almost deleted ${serviceInfo.title}, Are you sure you want to do that?.`)){
+    const {data} =  await removeService(
+       {variables: {
+        "deleteServiceId": serviceInfo.id
+      }}
+    );
+    if (!data) {
+      throw new Error('something went wrong!');
+    }
+    if(alert('Service Deleted!')){}
+    else{ window.location.reload()};
+  }
+}
 
-  const Admin= AdminTools();
 
-
+  if(!data){
+    return(
+      <div>
+        loading....
+      </div>
+    )
+  }
+  else {
   return (
     <>
       <Grid templateColumns='repeat(5, 1fr)' gap={4}>
@@ -61,7 +82,7 @@ export default function ServicesPage() {
         <GridItem colStart={3} colEnd={6} className="service-container">
           {data.getServices.map((service, index) => (
             <>
-            <div>{Admin}</div>
+            <div>{AdminTools(service)}</div>
             <ServiceCard
               key={index}
               title={service.title}
@@ -75,3 +96,6 @@ export default function ServicesPage() {
     </>
   );
 }
+}
+
+export default ServicesPage;

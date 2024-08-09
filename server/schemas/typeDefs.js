@@ -9,7 +9,7 @@ const typeDefs = gql`
   }
 
   type Service {
-    id: ID
+    _id: ID
     title: String!
     description: String!
     price: Float!
@@ -39,7 +39,7 @@ const typeDefs = gql`
     sendEmail(name: String!, email: String!, message: String!): String
     addService(title: String!, description: String!, price: Float!): Service
     updateService(id: ID!, name: String, description: String, price: Float): Service
-    deleteService(id: ID!): String
+    deleteService(id: ID!): Service
     addOrder(services: [ID!]!): Order
   }
 `;
