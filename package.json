@@ -1,6 +1,7 @@
 {
   "name": "radiant-soul-esthetics-",
   "version": "1.0.0",
+  "type": "module",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -33,6 +34,7 @@
     "express": "^4.19.2",
     "framer-motion": "^11.3.21",
     "graphql": "^16.9.0",
+    "idna-uts46-hx": "^6.0.5",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
