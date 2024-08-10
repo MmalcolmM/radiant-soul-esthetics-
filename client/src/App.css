@@ -122,11 +122,12 @@ html, body {
   margin: 10px 0;
 }
 
+
 .nav-link,
 .nav-link:focus,
 .nav-link:hover {
   color: var(--black);
-  border-bottom: 1px solid var(--black);
+  font-family: seasonsItalic, sans-serif;
 }
 
 /* Icons */
@@ -174,7 +175,7 @@ html, body {
 }
 
 /* Form */
-input[type="text"], input[type="email"], textarea {
+input[type="text"], input[type="email"], input[type="password"], textarea {
   width: 100%;
   padding: 1em;
   margin: 0.5em 0;
