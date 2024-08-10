@@ -4,6 +4,12 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const sgMail = require('@sendgrid/mail');
 const stripe = require("stripe")(process.env.REACT_APP_STRIPE_TEST_KEY);
+// import { toUnicode, toAscii } from 'idna-uts46-hx';
+
+// const domain = 'xn--fsq';
+// console.log(toUnicode(domain)); // converts to Unicode
+// console.log(toAscii('foo.com')); // converts to ASCII
+
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -79,26 +85,44 @@ const resolvers = {
   },
   Mutation: {
     signup: async (_, { name, email, password }) => {
-      const userExists = await User.findOne({ email });
-      if (userExists) {
+      console.log('Signup mutation called');
+      console.log('Name:', name);
+      console.log('Email:', email);
+      console.log('Password:', password);
+    
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
         throw new AuthenticationError('User already exists');
       }
-
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new User({ name, email, password: hashedPassword });
-      await user.save();
-      const token = signToken(user);
+    
+      try {
+        const newUser = new User({ name, email, password });
+        await newUser.save();
+        console.log('User saved successfully');
+      } catch (error) {
+        console.error('Error saving user:', error.message);
+        throw new Error('Error saving user');
+      }
+    
+      const token = signToken(newUser);
       return token;
     },
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
+        console.log('User not found for email:', email); // Add this line
         throw new AuthenticationError('Invalid credentials');
       }
+      
+      console.log('User found:', user); // Add this line
       const isValid = await bcrypt.compare(password, user.password);
+      
+      console.log('Password isValid:', isValid); // Add this line
       if (!isValid) {
+        console.log('Invalid credentials for email:', email); // Add this line
         throw new AuthenticationError('Invalid credentials');
       }
+      
       const token = signToken(user);
       return token;
     },
