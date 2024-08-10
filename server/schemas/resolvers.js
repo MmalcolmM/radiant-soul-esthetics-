@@ -132,13 +132,12 @@ const resolvers = {
         { new: true }
       );
     },
-    deleteService: async (_, { _id }, context) => {
+    deleteService: async (_, { id }, context) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
-      console.log(`removing service with ID ${id}`);
       
-      return  Service.findOneAndDelete({id: _id}) ;
+      return await Service.findOneAndDelete({_id: id}) ;
     },
     addOrder: async (parent, { services }, context) => {
       if (context.user) {

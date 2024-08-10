@@ -25,12 +25,13 @@ const ProtectedRoute = ({ element }) => {
   const { isAuthenticated, user } = useAuth();
   return isAuthenticated && user?.isAdmin ? element : <Navigate to="/login" />;
 };
-
+//const[idValue,setIdValue]= useState('')
 // Define the accessible routes, and which components respond to which URL
 const router = createBrowserRouter([
+   
   {
     path: '/',
-    element: <App />,
+    element: <App value="something" />,
     errorElement: <Error />,
     children: [
       {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       {
         path: '/services',
         element: <Services />,
+       
       },
       {
         path: '/contact',
@@ -58,8 +60,8 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<Admin />} />,
       },
       {
-        path: '/update',
-        element: <ProtectedRoute element={<AdminUpdate />} />,
+        path: '/update/:id',
+        element: <ProtectedRoute element={<AdminUpdate location />} />,
       },
       {
         path: '/login',

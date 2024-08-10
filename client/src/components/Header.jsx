@@ -2,7 +2,8 @@ import logo from "../assets/logo.jpg";
 import { Box } from "@chakra-ui/react";
 import "../App.css";
 
-export default function Header() {
+export default function Header(props) {
+  
   return (
     <>
       <Box display="flex" justifyContent="center" align="center" paddingBottom="10px">

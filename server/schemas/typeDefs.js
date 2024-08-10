@@ -38,7 +38,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): String
     sendEmail(name: String!, email: String!, message: String!): String
     addService(title: String!, description: String!, price: Float!): Service
-    updateService(id: ID!, name: String, description: String, price: Float): Service
+    updateService(id: ID!, title: String, description: String, price: Float): Service
     deleteService(id: ID!): Service
     addOrder(services: [ID!]!): Order
   }
