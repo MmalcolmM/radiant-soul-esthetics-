@@ -89,12 +89,12 @@ const resolvers = {
       console.log('Name:', name);
       console.log('Email:', email);
       console.log('Password:', password);
-    
+
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         throw new AuthenticationError('User already exists');
       }
-    
+
       try {
         const newUser = new User({ name, email, password });
         await newUser.save();
@@ -103,7 +103,7 @@ const resolvers = {
         console.error('Error saving user:', error.message);
         throw new Error('Error saving user');
       }
-    
+
       const token = signToken(newUser);
       return token;
     },
@@ -113,31 +113,52 @@ const resolvers = {
         console.log('User not found for email:', email); // Add this line
         throw new AuthenticationError('Invalid credentials');
       }
-      
+
       console.log('User found:', user); // Add this line
       const isValid = await bcrypt.compare(password, user.password);
-      
+
       console.log('Password isValid:', isValid); // Add this line
       if (!isValid) {
         console.log('Invalid credentials for email:', email); // Add this line
         throw new AuthenticationError('Invalid credentials');
       }
-      
+
       const token = signToken(user);
       return token;
     },
     sendEmail: async (_, { name, email, message }) => {
-      const msg = {
-        to: 'mac.mac5@yahoo.com', // Your email address
-        from: 'em4346@rsesthetics.com', // Your verified sender email
-        replyTo: email, // User's email address
-        subject: 'New Contact Form Submission',
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-        html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`,
-      };
-      await sgMail.send(msg);
-      return 'Email sent successfully!';
+      try {
+        // Email to yourself (your inbox)
+        const msgToSelf = {
+          to: 'malcolm.franklin.m@gmail.com',
+          from: 'em4346@rsesthetics.com',
+          replyTo: email,
+          subject: 'New Contact Form Submission',
+          text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+          html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`,
+        };
+        await sgMail.send(msgToSelf);
+    
+        // Automatic reply to the user
+        const autoReplyMsg = {
+          to: email,
+          from: 'em4346@rsesthetics.com',
+          subject: 'Thank You for Contacting Radiant Soul Esthetics',
+          text: `Hello ${name},\n\nThank you for reaching out to Radiant Soul Esthetics! Your inquiry is important to us.\n\nPlease note that I am currently away from my email, attending to clients. I will do my best to respond to your message within 24-48 hours.\n\nFor urgent inquiries, feel free to call or text me directly at 303-550-9603 or to schedule an appointment, please visit rsethetics.com.\n\nThank you for your patience and understanding.\n\nLove and Light,\n\nDeidre Hallert\nPMU Artist and Esthetician\nRadiant Soul Esthetics\n\n303-550-9603\ninfo@rsesthetics.com`,
+          html: `<p>Hello ${name},</p><p>Thank you for reaching out to Radiant Soul Esthetics! We have received your message and will get back to you as soon as possible.</p><p>Best regards,<br>Radiant Soul Esthetics Team</p>`,
+        };
+    
+        const response = await sgMail.send(autoReplyMsg);
+        console.log('SendGrid Response:', response);
+    
+        return 'Email sent successfully!';
+      } catch (error) {
+        console.error('Error sending email:', error);
+        throw new Error('Failed to send email. Please try again later.');
+      }
     },
+    
+
     addService: async (_, { title, description, price }, context) => {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
