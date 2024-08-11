@@ -7,8 +7,8 @@ const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 const bodyParser = require('body-parser');
 const path = require('path');
-const typeDefs = require('./schemas/typeDefs'); // Ensure you import typeDefs correctly
-const resolvers = require('./schemas/resolvers'); // Ensure you import resolvers correctly
+const typeDefs = require('./schemas/typeDefs'); 
+const resolvers = require('./schemas/resolvers'); 
 const db = require('./config/connection');
 
 
@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 3072;
 app.use(cors());
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+console.log(process.env.SENDGRID_API_KEY);
 
 
 // Create Apollo Server

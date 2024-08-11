@@ -33,27 +33,27 @@ html, body {
 /* Typography */
 @font-face {
   font-family: 'stayInVilla';
-  src: url('../fonts/Stay\ In\ Villa.ttf');
+  src: url('../fonts/StayInVilla.ttf');
 }
 
 @font-face {
   font-family: 'seasonsRegular';
-  src: url('../fonts/The\ Seasons\ Regular.ttf');
+  src: url('../fonts/TheSeasonsRegular.ttf');
 }
 
 @font-face {
   font-family: 'seasonsLight';
-  src: url('../fonts/The\ Seasons\ Light.ttf');
+  src: url('../fonts/TheSeasonsLight.ttf');
 }
 
 @font-face {
   font-family: 'seasonsBold';
-  src: url('../fonts/The\ Seasons\ Bold.ttf');
+  src: url('../fonts/TheSeasonsBold.ttf');
 }
 
 @font-face {
   font-family: 'seasonsItalic';
-  src: url('../fonts/The\ Seasons\ Italic.ttf');
+  src: url('../fonts/TheSeasonsItalic.ttf');
 }
 
 .aboutMain {
