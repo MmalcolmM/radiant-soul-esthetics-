@@ -157,9 +157,9 @@ const resolvers = {
         throw new Error('Failed to send email. Please try again later.');
       }
     },
-    
 
-    addService: async (_, { title, description, price }, context) => {
+    addService: async (parent, { title, description, price }, context) => {
+
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
@@ -181,8 +181,8 @@ const resolvers = {
       if (!context.user || !context.user.isAdmin) {
         throw new AuthenticationError('Unauthorized');
       }
-      await Service.findByIdAndDelete(id);
-      return 'Service deleted';
+      
+      return await Service.findOneAndDelete({_id: id}) ;
     },
     addOrder: async (parent, { services }, context) => {
       if (context.user) {

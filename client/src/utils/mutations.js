@@ -24,10 +24,20 @@ mutation addService($title: String!, $description: String!, $price: Float!) {
 
 `;
 
-// export const updateService= gql`
-// mutation UpdateService($updateServiceId: ID!, $name: String, $description: String, $price: Float) {
-//   updateService(id: $updateServiceId, name: $name, description: $description, price: $price) {
-    
-//   }
-// }
-// `;
+export const REMOVESERVICE=gql`
+mutation Mutation($deleteServiceId: ID!) {
+  deleteService(id: $deleteServiceId) {
+    _id
+  }
+}
+`;
+
+export const UPDATESERVICE=gql`
+mutation Mutation($title: String, $description: String, $price: Float, $updateServiceId: ID!) {
+  updateService(title: $title, description: $description, price: $price, id: $updateServiceId) {
+    description
+    price
+    title
+  }
+}
+`;

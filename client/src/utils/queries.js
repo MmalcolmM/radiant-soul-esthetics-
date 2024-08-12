@@ -2,24 +2,38 @@ import { gql } from '@apollo/client';
 
 
 
-export const QUERY_SERVICE = gql`
-  query getService($id: ID!) {
-    service(_id: $id) {
-      _id
-      name
-      description
-      price
-    }
+
+export const QUERY_SERVICES = gql`
+query GetServices($getServiceId: ID!) {
+  getService(id: $getServiceId) {
+    description
+    price
+    title
+
   }
+}
 `;
 
-export const QUERY_ALL_SERVICES = gql`
-query {
+
+export const QUERYALLSERVICES = gql`
+query Query {
+
   getServices {
     description
     price
     title
     _id
+  }
+}
+`;
+
+export const GETSERVICES =gql`
+query GetServices {
+  getServices {
+    _id
+    description
+    price
+    title
   }
 }
 `;
