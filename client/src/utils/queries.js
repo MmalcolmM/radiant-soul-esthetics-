@@ -2,23 +2,27 @@ import { gql } from '@apollo/client';
 
 
 
+
 export const QUERY_SERVICES = gql`
 query GetServices($getServiceId: ID!) {
   getService(id: $getServiceId) {
     description
     price
     title
+
   }
 }
 `;
 
+
 export const QUERYALLSERVICES = gql`
 query Query {
+
   getServices {
     description
     price
     title
-    id
+    _id
   }
 }
 `;
@@ -46,7 +50,7 @@ export const QUERY_CHECKOUT = gql`
 export const QUERY_USER = gql`
   {
     user {
-      username
+      email
       orders {
         _id
         purchaseDate

@@ -1,29 +1,29 @@
-import { Box, Image, Grid, GridItem,Button } from "@chakra-ui/react";
+import { Box, Image, Grid, GridItem, Button, Spinner, Text } from "@chakra-ui/react";
 import { useState } from "react";
 //import serviceInfo from "../../serviceInfo";
 import { facial } from "../../assets/index";
 import "./pages.css";
+
 import { useQuery, useMutation } from "@apollo/client";
-//import { useMutation } from "@apollo/client";
 import {GETSERVICES} from '../../utils/queries'
 import { REMOVESERVICE } from "../../utils/mutations";
-//import
 import {useAuth} from '../../utils/auth';
 import { Link, useNavigate } from "react-router-dom";
 
 
-
-
 function ServiceCard(serviceInfo) {
+
   return (
     <Box className="serviceCardContainer">
       <Box className="serviceCard" display="block">
         <div className="serviceCardHeader">
+
           <h3 className="card-title">{serviceInfo.title}</h3>
+
         </div>
         <div className="serviceCardBody">
-          <p className="price">{serviceInfo.price}</p>
-          <p className="description">{serviceInfo.description}</p>
+          <p className="price">{price}</p>
+          <p className="description">{description}</p>
         </div>
       </Box>
     </Box>
@@ -31,12 +31,12 @@ function ServiceCard(serviceInfo) {
 }
 
 
+
 const ServicesPage = (props) =>  {
 
   const [removeService] = useMutation(REMOVESERVICE)
   const {data}=  useQuery(GETSERVICES);
   const { isAuthenticated, user } = useAuth();
-  //console.log(props.appmessage);
   const AdminTools =(serviceInfo) =>{
   
     if(isAuthenticated && user.isAdmin){
@@ -47,10 +47,12 @@ const ServicesPage = (props) =>  {
         </Link>
         <button onClick={()=>handleDeletion(serviceInfo)}>Remove</button>
       </>
+
       )
-      
     }
+    return null;
   }
+
   
   async function handleDeletion(serviceInfo){
     console.log(serviceInfo._id);
@@ -68,6 +70,8 @@ const ServicesPage = (props) =>  {
   }
   }
 
+  if (loading) return <Spinner size="xl" />;
+  if (error) return <Text color="red.500">Error: {error.message}</Text>;
 
   if(!data){
     return(
@@ -81,10 +85,11 @@ const ServicesPage = (props) =>  {
     <>
       <Grid templateColumns='repeat(5, 1fr)' gap={4}>
         <GridItem colSpan={2}>
-          <Image src={facial} alt="Deidre giving a facial" width="80%" ml={5} display="flex" alignItems="center" justifyContent="center"></Image>
+          <Image src={facial} alt="Deidre giving a facial" width="80%" ml={5} display="flex" alignItems="center" justifyContent="center" />
         </GridItem>
         
         <GridItem colStart={3} colEnd={6} className="service-container">
+
           {data.getServices.map((service, index) => (
             <>
             <div>{AdminTools(service)}</div>
@@ -95,6 +100,7 @@ const ServicesPage = (props) =>  {
               description={service.description}
             />
             </>
+
           ))}
         </GridItem>
        
@@ -102,6 +108,8 @@ const ServicesPage = (props) =>  {
     </>
   );
 }
+
 }
 
 export default ServicesPage;
+

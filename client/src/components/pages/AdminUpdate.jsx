@@ -1,5 +1,8 @@
 import { useState, useContext } from 'react';
 import "./pages.css";
+
+import {QUERY_SERVICE} from '../../utils/queries';
+
 import { useQuery,useMutation } from '@apollo/client';
 import { UPDATESERVICE } from '../../utils/mutations';
 import {QUERY_SERVICES} from '../../utils/queries';
@@ -97,6 +100,7 @@ const AdminUpdate = () => {
                 value={price}
                 onChange={handleInputChange}
 
+
                 placeholder='Enter the new price for service'
              />
             <input 
@@ -112,6 +116,7 @@ const AdminUpdate = () => {
             </>
         )
     }
+
 }
 
 export default AdminUpdate;
