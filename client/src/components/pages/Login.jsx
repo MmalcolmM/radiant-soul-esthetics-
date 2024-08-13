@@ -33,7 +33,7 @@ function Login() {
       if (decoded.isAdmin) {
         navigate('/admin');
       } else {
-        navigate('/');
+        navigate('/order-history');
       }
     } catch (err) {
       console.error('Login error:', err);

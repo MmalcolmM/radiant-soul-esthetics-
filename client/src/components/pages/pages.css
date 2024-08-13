@@ -113,3 +113,7 @@ flex-wrap: wrap;
   font-weight: 800;
   font-size: xx-large;
 }
+
+.historyContainer {
+  margin-bottom: 25%;
+}

@@ -10,7 +10,7 @@
     "client:serve": "cd client && vite preview",
     "build": "npm run client:build",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
-    "seedAdmin": "node server/seedAdmin.js ",
+    "seedAdmin": "node server/seeds/seedAdmin.js ",
     "seed": "node server/seeds/seed.js",
     "vite": "vite",
     "install": ""

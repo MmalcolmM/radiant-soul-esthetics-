@@ -15,9 +15,9 @@ import ContactForm from './components/pages/ContactForm';
 import Services from './components/pages/Services';
 import BookNow from './components/pages/BookNow';
 import Admin from './components/pages/Admin';
-import Login from './components/pages/Login'; // Ensure this import is correct
+import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
-// import OrderHistory from './components/pages/OrderHistory.jsx';
+import OrderHistory from './components/pages/OrderHistory.jsx';
 import AdminUpdate from './components/pages/AdminUpdate';
 import { AuthProvider, useAuth } from './utils/auth.jsx';
 
@@ -71,10 +71,10 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />,
       },
-      // {
-      //   path: '/order-history',
-      //   element: <OrderHistory/>,
-      // },
+      {
+        path: '/order-history',
+        element: <OrderHistory/>,
+      },
     ],
   },
 ]);

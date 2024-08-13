@@ -27,39 +27,33 @@ const resolvers = {
     users: async () => {
       return await User.find();
     },
-    user: async (_, __, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id)
-          .populate({
-            path: 'orders',
-            populate: {
-              path: 'services', // Populate services within orders
-            },
-          });
-    
-        if (!user) {
-          throw new AuthenticationError('User not found');
-        }
-    
-        return user;
+    user: async (_, { _id, orderId }) => {
+      const user = await User.findById(_id).populate({
+        path: 'orders',
+        ...(orderId && { match: { _id: orderId } })
+      });
+      if (!user) {
+        throw new Error('User not found');
       }
-      throw new AuthenticationError('You must be logged in');
+      return user;
     },
+    
+    
+    order: async (_, { _id }) => {
+      const order = await Order.findById(_id);
+    
+      if (!order) {
+        throw new Error('Order not found');
+      }
+    
+      return order;  // Return the full order object
+    },    
 
     getServices: async () => {
       return await Service.find();
     },
     getService: async (_, { _id }) => {
       return await Service.findById(_id);
-    },
-    user: async (parent, { _id }, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id);
-
-        return user.orders.id(_id);
-      }
-
-      throw new AuthenticationError('You must be logged in');
     },
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;

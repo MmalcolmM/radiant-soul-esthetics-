@@ -49,20 +49,14 @@ export const QUERY_CHECKOUT = gql`
 
 
 export const QUERY_USER = gql`
-  {
-    user {
-    _id
+query user($userId: ID!) {
+    user(id: $userId) {
+      _id
       name
       email
       orders {
         _id
         purchaseDate
-        services {
-          _id
-          title
-          description
-          price
-        }
       }
     }
   }
