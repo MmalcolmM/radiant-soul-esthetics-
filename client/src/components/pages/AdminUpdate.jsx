@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import "./pages.css";
 
-import {QUERY_SERVICE} from '../../utils/queries';
+import {QUERY_SERVICES} from '../../utils/queries';
 
 import { useQuery,useMutation } from '@apollo/client';
 import { UPDATESERVICE } from '../../utils/mutations';
-import {QUERY_SERVICES} from '../../utils/queries';
+// import {QUERY_SERVICES} from '../../utils/queries';
 
 
 
@@ -22,6 +22,11 @@ const AdminUpdate = () => {
     
     const [updateService]=useMutation(UPDATESERVICE);
 
+    const {loading,data} =useQuery(QUERY_SERVICES, {
+        variables: {"id": state}
+    }) 
+    console.log(data);
+
     const handleInputChange = (e) => {
         const { target } = e;
         const inputType = target.name;
@@ -37,6 +42,8 @@ const AdminUpdate = () => {
     };
 
     async function handleUpdate(){
+
+       
         
     if (!title || !description || !price) {
         alert('please finish filling out the form!');
@@ -61,9 +68,7 @@ const AdminUpdate = () => {
         }
     }
 
-    const {loading,data} =useQuery(QUERY_SERVICES, {
-        variables: {"getServiceId": state}
-    })
+   
 
     if (!data){
         return (<><div>loading </div></>)
@@ -79,14 +84,14 @@ const AdminUpdate = () => {
             <h1>Welcome to the Update page</h1>
 
             <div> 
-                <div> to the left is the old information</div>
+                <div> To the left is the old information</div>
                 <div>{service.title}</div>
                 <div>{service.price}</div>
                 <div>{service.description}</div>
             </div>
     
             <form>
-            <h1>update newinformation here</h1>
+            <h1>Update new information here</h1>
             <input 
                 type="text"  
                 value={title} 

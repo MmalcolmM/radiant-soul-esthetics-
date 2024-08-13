@@ -3,14 +3,14 @@ import ServiceItem from '../ServiceItem/Index';
 import { useStoreContext } from '../../../utils/GlobalState';
 import { UPDATE_SERVICES } from '../../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_SERVICE } from '../../../utils/queries';
+import { QUERYALLSERVICES } from '../../../utils/queries';
 import { idbPromise } from '../../../utils/helpers';
 
 function ServiceList() {
   const [state, dispatch] = useStoreContext();
   const { services } = state;
 
-  const { loading, data, error } = useQuery(QUERY_SERVICE);
+  const { loading, data, error } = useQuery(QUERYALLSERVICES);
 
   useEffect(() => {
     if (data) {
