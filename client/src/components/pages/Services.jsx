@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function ServiceCard(serviceInfo) {
 
+
   return (
     <Box className="serviceCardContainer">
       <Box className="serviceCard" display="block">
@@ -22,8 +23,8 @@ function ServiceCard(serviceInfo) {
 
         </div>
         <div className="serviceCardBody">
-          <p className="price">{price}</p>
-          <p className="description">{description}</p>
+          <p className="price">{serviceInfo.price}</p>
+          <p className="description">{serviceInfo.description}</p>
         </div>
       </Box>
     </Box>
@@ -35,10 +36,11 @@ function ServiceCard(serviceInfo) {
 const ServicesPage = (props) =>  {
 
   const [removeService] = useMutation(REMOVESERVICE)
-  const {data}=  useQuery(GETSERVICES);
+  const {loading,data}=  useQuery(GETSERVICES);
+  console.log(data);
   const { isAuthenticated, user } = useAuth();
   const AdminTools =(serviceInfo) =>{
-  
+  // const { loading, data, error } = useQuery(GETSERVICES);
     if(isAuthenticated && user.isAdmin){
       return (
         <>
@@ -71,7 +73,7 @@ const ServicesPage = (props) =>  {
   }
 
   if (loading) return <Spinner size="xl" />;
-  if (error) return <Text color="red.500">Error: {error.message}</Text>;
+  //if (error) return <Text color="red.500">Error: {error.message}</Text>;
 
   if(!data){
     return(
