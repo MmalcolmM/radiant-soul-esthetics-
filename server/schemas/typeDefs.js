@@ -13,6 +13,7 @@ const typeDefs = gql`
     title: String!
     description: String!
     price: Float!
+    link: String
   }
 
   type Order {
@@ -22,11 +23,12 @@ const typeDefs = gql`
   }
 
   type Checkout {
-    session: ID
+    session: ID!
   }
 
   type Query {
-    user: User
+    users: [User!]!
+    user(id: ID!): User
     getServices: [Service]
     getService(_id: ID!): Service
     order(_id: ID!): Order

@@ -40,15 +40,15 @@ function ServiceList() {
 
   return (
     <div className="my-2">
-      <h2>Our Services:</h2>
       {services.length ? (
         <div className="flex-row">
           {services.map((service) => (
             <ServiceItem
               key={service._id}
               _id={service._id}
-              name={service.name}
+              title={service.title}
               price={service.price}
+              link={service.link}
             />
           ))}
         </div>

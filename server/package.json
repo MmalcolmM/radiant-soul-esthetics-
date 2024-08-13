@@ -15,6 +15,7 @@
     "express": "^4.19.2",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
     "mongoose": "^8.5.2",
     "stripe": "^16.6.0"
   }

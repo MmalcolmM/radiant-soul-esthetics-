@@ -1,6 +1,6 @@
-import { Box, Image, Grid, GridItem, Button, Spinner, Text } from "@chakra-ui/react";
+import { Box, Image, Grid, GridItem, Button, Spinner } from "@chakra-ui/react";
 import { useState } from "react";
-//import serviceInfo from "../../serviceInfo";
+// import serviceInfo from "../../serviceInfo";
 import { facial } from "../../assets/index";
 import "./pages.css";
 

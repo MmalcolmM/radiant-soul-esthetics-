@@ -22,6 +22,7 @@ query Query {
     description
     price
     title
+    link
     _id
   }
 }
@@ -50,13 +51,15 @@ export const QUERY_CHECKOUT = gql`
 export const QUERY_USER = gql`
   {
     user {
+    _id
+      name
       email
       orders {
         _id
         purchaseDate
         services {
           _id
-          name
+          title
           description
           price
         }

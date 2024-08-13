@@ -30,10 +30,10 @@ function NavTabs() {
 
       <Box className="login" display="flex" justifyContent="flex-end">
         {isAuthenticated ? (
-          <Button size='xs' bg="white" variant='ghost' onClick={handleLogout}>Logout</Button>
+          <Button size='med' bg="white" variant='ghost' onClick={handleLogout}>Logout</Button>
         ) : (
           <Link to="/Login">
-            <Button size='xs' bg="white" variant='ghost'>Login</Button>
+            <Button size='md' bg="white" variant='ghost'>Login</Button>
           </Link>
         )}
       </Box>

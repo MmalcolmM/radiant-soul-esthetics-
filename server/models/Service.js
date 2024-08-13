@@ -13,6 +13,10 @@ const serviceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  link: {
+    type: String,
+    required: false,
+  },
 });
 
 const Service = mongoose.model('Service', serviceSchema);
