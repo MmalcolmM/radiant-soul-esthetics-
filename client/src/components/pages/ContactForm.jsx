@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -10,16 +9,25 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/graphql', {
-        query: `
-          mutation SendEmail($name: String!, $email: String!, $message: String!) {
-            sendEmail(name: $name, email: $email, message: $message)
-          }
-        `,
-        variables: { name, email, message },
+      const response = await fetch('/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+            mutation SendEmail($name: String!, $email: String!, $message: String!) {
+              sendEmail(name: $name, email: $email, message: $message)
+            }
+          `,
+          variables: { name, email, message },
+        }),
       });
-      if (response.data.errors) {
-        throw new Error(response.data.errors[0].message);
+
+      const result = await response.json();
+
+      if (result.errors) {
+        throw new Error(result.errors[0].message);
       }
       setNotification('Email sent successfully!');
       setTimeout(() => {
