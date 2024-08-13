@@ -1,10 +1,7 @@
 .env
 client/node_modules
 node_modules
-.bin
-.vite
-
-
+server/node_modules
 
 # Logs
 logs
