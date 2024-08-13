@@ -30,7 +30,7 @@ function Login() {
       if (decoded.isAdmin) {
         navigate('/admin');
       } else {
-        alert('You know this aint for you. Redirecting to the main page.');
+        // alert('You know this aint for you. Redirecting to the main page.');
         navigate('/');
       }
     } catch (err) {
