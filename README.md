@@ -1,5 +1,3 @@
-
-
 # Radiant Soul Esthetics 
 
 ## Description
@@ -32,12 +30,12 @@ https://radiant-soul-esthetics.onrender.com/
 
 ## Credits
 
-[Courtney](https://github.com/cnm724)
-[Jemeric](https://github.com/sentorus67) <br>
+[Courtney](https://github.com/cnm724)<br>
+[Jemeric](https://github.com/sentorus67)<br>
+[Malcolm](https://github.com/MmalcolmM)  <br>
 
 Image carousel: https://www.youtube.com/watch?v=l1MYfu5YWHc <br>
 Footer--pin: https://dev.to/gedalyakrycer/ohsnap-this-how-to-pin-footers-in-react-3k1k <br>
-Style: ChakraUI, Semantic CSS
 
 
 ## License
@@ -47,13 +45,14 @@ All Rights Reserved. This software and its code are the exclusive property of Ma
 © 2024 Malcolm Franklin, Courtney Manaligod, Jemeric Thomas. All rights reserved.
 
 
-
-
 ## Badges
 
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
-
+  [![Node.js Badge](https://img.shields.io/badge/Node.js-393?logo=nodedotjs&logoColor=fff&style=flat)](https://nodejs.org/en) 
+  [![React](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+  [![Vite](https://shields.io/badge/vitejs-9575CD?logo=vite&logoColor=FBC02D)](https://vitejs.dev/)
+  [![MongoDB](https://img.shields.io/badge/-MongoDB-4DB33D?style=flat&logo=mongodb&logoColor=FFFFFF)](https://www.mongodb.com/)
+  [![ChakraUI](https://img.shields.io/badge/-ChakraUI-61DAFB?logo=chakraUI&logoColor=white)](https://v2.chakra-ui.com/)
+  [![Stripe](https://img.shields.io/badge/Stripe-626CD9?&logo=Stripe&logoColor=white)](https://docs.stripe.com/)
+  [![express](https://img.shields.io/badge/Express.js-404D59)](https://expressjs.com/)
+  [![sendgrid](https://img.shields.io/badge/SendGrid-404D59)](https://sendgrid.com/en-us)
 
