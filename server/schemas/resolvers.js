@@ -37,6 +37,7 @@ const resolvers = {
     },
     getServices: async () => {
       return await Service.find();
+      console.log('Services from DB:', services)
     },
     getService: async (_, { _id }) => {
       return await Service.findById(_id);
