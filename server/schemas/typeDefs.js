@@ -22,7 +22,7 @@ const typeDefs = gql`
   }
 
   type Checkout {
-    session: ID
+    session: ID!
   }
 
   type Query {

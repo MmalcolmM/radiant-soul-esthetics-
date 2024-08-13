@@ -1,4 +1,4 @@
-import Cart from "../stripe/Cart";
+// import Cart from "../stripe/Cart";
 import ServiceList from "../stripe/ServiceList";
 
 
@@ -8,7 +8,7 @@ function BookNow() {
   return (
     <div className="container">
     <ServiceList />
-    <Cart />
+    {/* <Cart /> */}
     </div>
   )
 }
