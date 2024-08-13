@@ -7,7 +7,7 @@ function ServiceItem(item) {
   const [state, dispatch] = useStoreContext();
 
   const {
-    name,
+    title,
     _id,
     price
   } = item;
@@ -32,10 +32,10 @@ function ServiceItem(item) {
   return (
     <div className="card px-1 py-1">
       <Link to={`/service/${_id}`}>
-        <p>{name}</p>
+        <p>{title}</p>
       </Link>
       <div>
-        <div>Purchase {name} service!</div>
+        <div>Purchase {title} service!</div>
         <span>${price}</span>
       </div>
       <button onClick={addToCart}>Add to cart</button>

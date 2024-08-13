@@ -51,41 +51,72 @@ const resolvers = {
 
       throw new AuthenticationError('You must be logged in');
     },
-    checkout: async (parent, args, context) => {
-      const url = new URL(context.headers.referer).origin;
-      const order = new Order({ services: args.services });
-      const line_items = [];
+    // checkout: async (parent, args, context) => {
+    //   const url = new URL(context.headers.referer).origin;
+    //   const order = new Order({ services: args.services });
+    //   const line_items = [];
 
-      const { services } = await order.populate('services');
+    //   const { services } = await order.populate('services');
 
-      for (let i = 0; i < services.length; i++) {
-        const service = services[i];
-        line_items.push({
+    //   for (let i = 0; i < services.length; i++) {
+    //     const service = services[i];
+    //     line_items.push({
+    //       price_data: {
+    //         currency: 'usd',
+    //         product_data: {
+    //           name: service.title,
+    //           description: service.description,
+    //         },
+    //         unit_amount: service.price * 100,
+    //       },
+    //       quantity: 1,
+    //     });
+    //   }
+
+    //   const session = await stripe.checkout.sessions.create({
+    //     payment_method_types: ['card'],
+    //     line_items,
+    //     mode: 'payment',
+    //     success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+    //     cancel_url: `${url}/`,
+    //   });
+
+    //   return { session: session.id };
+    // }
+    checkout: async (_, { services }) => {
+      // Fetch the service details and create line items
+      const lineItems = services.map(serviceId => {
+        // Replace this comment with actual code to fetch the service from your database
+        const service = { title: 'Service title', price: 10000 }; // Example service object
+
+        return {
           price_data: {
             currency: 'usd',
             product_data: {
               name: service.title,
-              description: service.description,
             },
-            unit_amount: service.price * 100,
+            unit_amount: service.price,
           },
           quantity: 1,
-        });
-      }
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items,
-        mode: 'payment',
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`,
+        };
       });
 
+      // Create the Stripe checkout session
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${process.env.YOUR_DOMAIN}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.YOUR_DOMAIN}/cancel`,
+      });
+
+      // Return the session ID
       return { session: session.id };
-    }
+    },
   },
   Mutation: {
     signup: async (_, { name, email, password }) => {
+      try {
       console.log('Signup mutation called');
       console.log('Name:', name);
       console.log('Email:', email);
@@ -95,18 +126,20 @@ const resolvers = {
       if (existingUser) {
         throw new AuthenticationError('User already exists');
       }
-
-      try {
+    
         const newUser = new User({ name, email, password });
         await newUser.save();
         console.log('User saved successfully');
+        const token = signToken(newUser);
+        return token;
       } catch (error) {
+        
         console.error('Error saving user:', error.message);
         throw new Error('Error saving user');
+        return
       }
 
-      const token = signToken(newUser);
-      return token;
+  
     },
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email });
