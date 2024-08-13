@@ -1,4 +1,4 @@
-import { useState/** , useEffect*/ } from 'react';
+import { useState } from 'react';
 import sliderData from "../../utils/sliderData";
 import * as sliderImgs from "../../assets/index";
 import "./pages.css";
@@ -17,15 +17,6 @@ export default function Home() {
   const prevSlide = () => {
     setCurrent(current === 0 ? length -1  : current -1)
   }
-
-  // // automatically changes pictures
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     nextSlide();
-  //   }, 5000);
-
-  //   return () => clearInterval(interval);
-  // });
 
   if (!Array.isArray(sliderData) || length <= 0) {
     return null;
