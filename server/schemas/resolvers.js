@@ -97,6 +97,7 @@ const resolvers = {
   Mutation: {
     signup: async (_, { name, email, password }) => {
       try {
+
         console.log('Signup mutation called');
         console.log('Name:', name);
         console.log('Email:', email);
@@ -112,13 +113,14 @@ const resolvers = {
         console.log('User saved successfully');
         const token = signToken(newUser);
         return token;
+
       } catch (error) {
 
         console.error('Error saving user:', error.message);
         throw new Error('Error saving user');
-        return
-      }
 
+        return;
+      }
 
     },
     login: async (_, { email, password }) => {
