@@ -58,7 +58,7 @@ const ServicesPage = (props) =>  {
   
   async function handleDeletion(serviceInfo){
     console.log(serviceInfo._id);
-  if(confirm(`you almost deleted ${serviceInfo.title}, Are you sure you want to do that?.`)){
+  if(confirm(`You almost deleted ${serviceInfo.title}, Are you sure you want to do that?.`)){
     const {data} =  await removeService(
        {variables: {
         "deleteServiceId": serviceInfo._id
